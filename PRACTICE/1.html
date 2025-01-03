@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* overflow: hidden; */
+
+        }
+
+        body{
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background: linear-gradient(225deg, #9ad5e5 0%, #e5aa9a 100%);
+                     
+        }   
+
+        .product-card {
+            width: 300px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            background-color:rgba(128, 128, 128, 0.283);
+            backdrop-filter: blur(30%);
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0px 0px 15px 3px rgba(15, 14, 14, 0.582);        }
+
+        .product-card:hover{
+            transform: scale(1.05);
+            transition: ease-in 0.6s;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-card img:hover{
+            transform: scale(1.1);         
+           transition: ease-in 0.6s;
+        }
+        
+        .btn{
+            background-color: cadetblue;
+            color: white;
+        }
+        
+        .btn:hover{
+            border:1px solid black;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .form-select{
+            background-color: transparent;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <hr>
+        <h1 class="text-center my-4"> * Food Products *</h1>
+        <hr>
+        <div class="product-container" id="productContainer">
+            <!-- Product cards will be injected here -->
+        </div>
+        <button class="btn btn-primary mt-4 d-block mx-auto" onclick="goToCartPage()">Go to Cart</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const products = [
+            { 
+                id: 1, 
+                title: "Pizza", 
+                description: "Delicious cheese pizza.", 
+                prices: [400, 650, 900],
+                images: [
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrabxq5BpV3kEJaxYsiW89P0t7r5qM9VZAMg&s", 
+                ]
+            },
+            { 
+                id: 2, 
+                title: "Burger", 
+                description: "Juicy beef burger.", 
+                prices: [90, 120, 160],
+                images: [
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl73vPS1OeKzDtyJCldosqMnF2Mp3FdV1XwQ&s", 
+                ]
+            },
+            { 
+                id: 3, 
+                title: "Pasta", 
+                description: "Creamy Alfredo pasta.", 
+                prices: [120, 180, 240],
+                images: [
+                    "https://www.vincenzosplate.com/wp-content/uploads/2021/08/610x350-Photo-4_862-How-to-Make-CHICKEN-PASTA-Like-an-Italian-V1.jpg", 
+                ]
+            },
+            { 
+                id: 4, 
+                title: "Salad", 
+                description: "Fresh garden salad.", 
+                prices: [60, 100, 140],
+                images: [
+                    "https://cdn.jwplayer.com/v2/media/wGEqBtuf/thumbnails/qSXwlEH3.jpg", 
+                    
+                ]
+            },
+            { 
+                id: 5, 
+                title: "Finger Chips ", 
+                description: " Crunch ka Munch Potato Finger Chips", 
+                prices: [60, 80, 160],
+                images: [
+                    "https://t4.ftcdn.net/jpg/06/66/67/37/360_F_666673774_6QEWmVHpXMOmGnTp5eZK0qU533rK3qOF.jpg", 
+                ]
+            },
+            { 
+                id: 6, 
+                title: "Dhosa", 
+                description: "south special Dhosa", 
+                prices: [200, 300, 400],
+                images: [
+                    "https://content.jdmagicbox.com/comp/surat/b3/0261px261.x261.190731220821.e6b3/catalogue/dr-fancy-dhosa-kathiyawadi-punjabi-surat-0wwao1j3uy.jpg", 
+                ]
+            },
+
+            { 
+                id: 7, 
+                title: "Cold juice", 
+                description: "sweets special milk juice", 
+                prices: [120, 200, 330],
+                images: [
+                    "https://aartimadan.com/wp-content/uploads/2022/04/Watermelon-Milk.jpg"
+                ]
+            },
+
+
+            { 
+                id: 8, 
+                title: "Sushi", 
+                description: "Assorted sushi platter.", 
+                prices:  [120, 130, 160],
+                images: [
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA5WIVN79OzPBdQ3pRbsSRnzPiUemWKuKCQQ&s", 
+                ]
+            }
+        ];
+
+        let productContainer = document.getElementById("productContainer");
+
+        products.forEach(product => {
+            let card = document.createElement("div");
+            card.className = "product-card"; 
+            
+            // Generate images for the product
+            let imagesHtml = product.images.map(image => `<img src="${image}" alt="${product.title} Image">`).join('');
+
+            card.innerHTML = `
+                ${imagesHtml}
+                <h5 class="mt-3">${product.title}</h5>
+                <p>${product.description}</p>
+                <p class="text-muted">Price: ₹<span id="priceDisplay${product.id}">${product.prices[0]}</span></p>
+                <select class="form-select my-2" id="priceSelect${product.id}" onchange="updatePrice(${product.id})">
+                    ${product.prices.map(price => `<option value="${price}">₹${price}</option>`).join('')}
+                </select>
+                <button class="btn id="add" btn-primary mt-3" onclick="addToCart(${product.id})">Add to Cart</button>
+            `;
+            productContainer.appendChild(card);
+        });
+
+        function updatePrice(productId) {
+           let selectedPrice = document.getElementById(`priceSelect${productId}`).value;
+            document.getElementById(`priceDisplay${productId}`).textContent = selectedPrice;
+        }
+
+        function addToCart(productId) {
+    let product = products.find(p => p.id === productId);
+    let selectedPrice = document.getElementById(`priceSelect${productId}`).value;
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existingProduct = cart.find(p => p.id === productId);
+    if (existingProduct) {
+        existingProduct.quantity++;
+        existingProduct.price = selectedPrice;
+    } else {
+        cart.push({
+            id: product.id,
+            title: product.title,
+            description: product.description,
+            price: selectedPrice,
+            quantity: 1,
+            image: product.images[0] // Store the image URL (first image from the product)
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${product.title} added to cart.`);
+}
+
+        function goToCartPage() {
+            window.location.href = "cart.html";
+        }
+    </script>
+</body>
+
+</html>
